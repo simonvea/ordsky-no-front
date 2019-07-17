@@ -1,26 +1,29 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { appendCloud } from '../utils/domfunc';
+import { createCloud, svgDataURL, createPng } from '../utils/svgToPng';
 
-function Cloud({ clouds }) {
 
+function Cloud({ cloud, toggleDisplay }) {
+
+  let downloadUrl;
   useEffect(() => {
-    const cloud = clouds[clouds.length - 1];
     if (!cloud) return undefined;
     const cloudElement = document.querySelector('#cloud');
-    appendCloud(cloud, cloudElement);
-  }, [clouds]);
+    const svg = createCloud(cloud);
+    const xml = svgDataURL(svg);
+    downloadUrl = createPng(xml, cloudElement);
+  }, [cloud]);
 
   return (
     <div>
       <div id="cloud" style={{ height: 510, width: 510 }} />
+      <button type="button" onClick={toggleDisplay} className="button">Ny ordsky</button>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  clouds: state.clouds,
+const mapStateToProps = ({ clouds }) => ({
+  cloud: clouds[clouds.length - 1],
 });
 
 export default connect(mapStateToProps)(Cloud);

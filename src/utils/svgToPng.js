@@ -1,41 +1,43 @@
+import { select } from 'd3-selection';
 
-const element = document.createElement('div');
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d');
-
-const makePng = () => {
+export const createPng = (xml, element) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
+  canvas.height = 500;
+  canvas.width = 500;
+  // If you want a non transparent background for the wordCloud;
+  // ctx.fillStyle = 'white';
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  const svg = document.querySelector('#cloud > svg');
-  const xml = new XMLSerializer().serializeToString(svg);
-  const data = "data:image/svg+xml," + encodeURIComponent(xml);
   const img = new Image();
   img.onload = () => {
     ctx.drawImage(img, 0, 0);
-    const png = canvas.toDataURL('image/png');
-    const pngI = new Image();
-    pngI.src = png;
-    const cloudElement = document.querySelector('#png');
-    cloudElement.appendChild(pngI);
+
+    // toBlob(callback, mimeType, qualityArgumentIfJPG)
+    canvas.toBlob((blob) => {
+      const png = new Image();
+      const url = URL.createObjectURL(blob);
+      png.onload = () => {
+        URL.revokeObjectURL(url);
+      };
+      png.src = url;
+      element.appendChild(png);
+    }, 'image/png');
   };
 
-  img.src = data;
-  const cloudElement = document.querySelector('#png');
-  cloudElement.appendChild(img);
+  img.src = xml;
 };
 
 
-function svgDataURL(svg) {
+export function svgDataURL(svg) {
   const svgAsXML = (new XMLSerializer()).serializeToString(svg);
-  return "data:image/svg+xml," + encodeURIComponent(svgAsXML);
+  return 'data:image/svg+xml,' + encodeURIComponent(svgAsXML);
 }
 
-function appendCloud(cloud, element) {
-  // removes previous cloud
-  if (element.firstChild) { element.removeChild(element.firstChild); }
+export function createCloud(cloud) {
+  const div = document.createElement('div');
 
-  select(element).append('svg')
+  select(div).append('svg')
     .attr('width', 500) // layout.size()[0]
     .attr('height', 500) // layout.size()[1]
     .append('g')
@@ -50,32 +52,20 @@ function appendCloud(cloud, element) {
     .attr('text-anchor', 'middle')
     .attr('transform', d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')
     .text(d => d.text);
+
+  return div.firstChild;
 }
 
+export function downloadFile(url) {
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
 
-function svgString2Image( svgString, width, height, format, callback ) {
-	var format = format ? format : 'png';
-
-	var imgsrc = 'data:image/svg+xml;base64,'+ btoa( unescape( encodeURIComponent( svgString ) ) ); // Convert SVG string to data URL
-
-	var canvas = document.createElement("canvas");
-	var context = canvas.getContext("2d");
-
-	canvas.width = width;
-	canvas.height = height;
-
-	var image = new Image();
-	image.onload = function() {
-		context.clearRect ( 0, 0, width, height );
-		context.drawImage(image, 0, 0, width, height);
-
-		canvas.toBlob( function(blob) {
-			var filesize = Math.round( blob.length/1024 ) + ' KB';
-			if ( callback ) callback( blob, filesize );
-		});
-
-		
-	};
-
-	image.src = imgsrc;
+  const a = document.createElement('a');
+  a.setAttribute('download', 'ordsky.png');
+  a.setAttribute('href', url);
+  a.setAttribute('target', '_blank');
+  a.dispatchEvent(event);
 }

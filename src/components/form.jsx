@@ -22,6 +22,8 @@ function Form(props) {
 
     const cloud = await createCloud({ words: countedWords });
     props.addCloud(cloud);
+
+    props.toggleDisplay();
   };
 
   return (

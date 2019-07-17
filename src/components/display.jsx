@@ -1,21 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import Cloud from './cloud';
 import Form from './form';
 
-function Display({ cloud }) {
-  if (cloud) {
-    return (
-      <Cloud />
-    );
-  }
+function Display() {
+  const [display, setDisplay] = useState(false);
+
+  const toggleDisplay = () => setDisplay(!display);
   return (
-    <Form />
+    <div>
+      {display && <Cloud toggleDisplay={toggleDisplay} />}
+
+      {!display && <Form toggleDisplay={toggleDisplay} />}
+    </div>
   );
 }
 
-const mapStateToProps = state => ({
-  cloud: state.clouds[state.clouds.length - 1],
-});
-
-export default connect(mapStateToProps)(Display);
+export default Display;
