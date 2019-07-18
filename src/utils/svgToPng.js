@@ -1,6 +1,6 @@
 import { select } from 'd3-selection';
 
-export const createPng = (xml) => {
+export const downloadAsPng = (xml) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   canvas.height = 500;
@@ -14,17 +14,6 @@ export const createPng = (xml) => {
     ctx.drawImage(img, 0, 0);
     const url = canvas.toDataURL();
     downloadOrdsky(url);
-
-    /* // toBlob(callback, mimeType, qualityArgumentIfJPG)
-    canvas.toBlob((blob) => {
-      const png = new Image();
-      const url = URL.createObjectURL(blob);
-      png.onload = () => {
-        URL.revokeObjectURL(url);
-      };
-      png.src = url;
-      element.appendChild(png);
-    }, 'image/png'); */
   };
 
   img.src = xml;

@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createCloud, svgDataURL, createPng } from '../utils/svgToPng';
-
+import { createCloud, svgDataURL, downloadAsPng } from '../utils/svgToPng';
 
 function Cloud({ cloud, toggleDisplay }) {
-
   const buttonContainerStyle = {
     margin: 'auto',
     display: 'flex',
@@ -13,7 +11,7 @@ function Cloud({ cloud, toggleDisplay }) {
 
   const svg = createCloud(cloud);
   const xml = svgDataURL(svg);
-  const download = () => createPng(xml);
+  const download = () => downloadAsPng(xml);
 
   return (
     <div>
