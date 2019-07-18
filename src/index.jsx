@@ -10,5 +10,3 @@ ReactDOM.render(
     <App />
   </Provider>, document.getElementById('root'),
 );
-
-store.subscribe(() => console.log(store.getState()));

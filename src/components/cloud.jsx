@@ -1,23 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { createCloud, svgDataURL, createPng } from '../utils/svgToPng';
 
 
 function Cloud({ cloud, toggleDisplay }) {
 
-  let downloadUrl;
-  useEffect(() => {
-    if (!cloud) return undefined;
-    const cloudElement = document.querySelector('#cloud');
-    const svg = createCloud(cloud);
-    const xml = svgDataURL(svg);
-    downloadUrl = createPng(xml, cloudElement);
-  }, [cloud]);
+  const buttonContainerStyle = {
+    margin: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+  };
+
+  const svg = createCloud(cloud);
+  const xml = svgDataURL(svg);
+  const download = () => createPng(xml);
 
   return (
     <div>
-      <div id="cloud" style={{ height: 510, width: 510 }} />
-      <button type="button" onClick={toggleDisplay} className="button">Ny ordsky</button>
+      <div id="cloud" style={{ height: 510, width: 510 }}>
+        <img src={xml} alt="ordsky" />
+      </div>
+      <div style={buttonContainerStyle}>
+        <button type="button" onClick={download} className="button btn-download">Last ned som png</button>
+        <button type="button" onClick={toggleDisplay} className="button">Ny ordsky</button>
+      </div>
     </div>
   );
 }

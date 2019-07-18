@@ -2,6 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Home() {
+
+  const buttonDivStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+  };
+
   return (
     <div>
       <section className="main-info">
@@ -10,12 +16,10 @@ function Home() {
         </h3>
         <p>
           Her kan du lage en ordsky ved å lime inn en eller flere tekster.
-          Alternativt så kan du legge inn en egen definert liste med ord og antall.
         </p>
       </section>
-      <section className="actions">
-        <Link to="/text" className="button">Ordsky fra en tekst</Link>
-        <Link to="/text" className="button">Ordsky fra en liste</Link>
+      <section style={buttonDivStyle}>
+        <Link to="/text" className="button">Lag en ordsky</Link>
       </section>
     </div>
   );
