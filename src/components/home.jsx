@@ -15,7 +15,12 @@ function Home() {
             Velkommen til ordsky.no!
         </h3>
         <p>
-          Her kan du lage en ordsky ved å lime inn en eller flere tekster.
+          Her kan du lage en gratis ordsky. Ordsky generatoren er enkel å bruke.
+          Alt du trenger å gjøre er å lime inn den teksten eller samlingen med ord som du ønsker å lage en ordsky av.
+          Ordskyen er perfekt å bruke til presentasjoner laget i for eksempel word eller powerpoint.
+        </p>
+        <p>
+          Start med å lage en ordsky ved å trykke på knappen under.
         </p>
       </section>
       <section style={buttonDivStyle}>
