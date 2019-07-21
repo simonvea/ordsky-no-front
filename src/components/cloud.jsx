@@ -1,25 +1,20 @@
 import React from 'react';
+import './cloud.css';
 import { connect } from 'react-redux';
 import { createCloud, svgDataURL, downloadAsPng } from '../utils/svgToPng';
 
 function Cloud({ cloud, toggleDisplay }) {
-  const buttonContainerStyle = {
-    margin: 'auto',
-    display: 'flex',
-    justifyContent: 'center',
-  };
-
   const svg = createCloud(cloud);
   const xml = svgDataURL(svg);
   const download = () => downloadAsPng(xml);
 
   return (
     <div>
-      <div id="cloud" style={{ height: 510, width: 510 }}>
-        <img src={xml} alt="ordsky" />
-      </div>
-      <div style={buttonContainerStyle}>
-        <button type="button" onClick={download} className="button btn-download">Last ned som png</button>
+      <section className="ordsky">
+        <img src={xml} alt="ordsky" className="ordsky__img" />
+      </section>
+      <div className="flex-container">
+        <button type="button" onClick={download} className="button button--secondary">Last ned som png</button>
         <button type="button" onClick={toggleDisplay} className="button">Ny ordsky</button>
       </div>
     </div>

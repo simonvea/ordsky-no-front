@@ -16,7 +16,7 @@ function Form(props) {
   const toggleNotification = (message, seconds) => {
     setNotification(message);
     setTimeout(() => setNotification(''), seconds * 1000);
-  }
+  };
 
   const onChange = ({ target }) => {
     setText(target.value);
@@ -30,13 +30,12 @@ function Form(props) {
     }
 
     try {
-      
       addLoadingMessage('Teller ord...', submitButton);
 
       const countedWords = await countWords({ text });
       props.addWords(countedWords);
 
-    addLoadingMessage('Lager ordsky...', submitButton);
+      addLoadingMessage('Lager ordsky...', submitButton);
 
       const cloud = await createCloud({ words: countedWords });
       props.addCloud(cloud);
@@ -53,10 +52,10 @@ function Form(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <textarea
           name="text"
-          className="form-control"
+          className="form__textarea"
           rows="5"
           placeholder="Lim inn tekst her"
           value={text}
@@ -65,9 +64,9 @@ function Form(props) {
         <div className="notification">
           {notification || null}
         </div>
-        <div>
+        <div className="flex-container">
           <button type="submit" id="klikk-meg" className="button">Generer ordsky</button>
-          <Link to="/" className="button btn-outline">Til forsiden</Link>
+          <Link to="/" className="button button--outline">Til forsiden</Link>
         </div>
       </form>
     </div>

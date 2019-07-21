@@ -1,4 +1,5 @@
 import React from 'react';
+import './app.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,18 +11,16 @@ import Display from './components/display';
 function App() {
   return (
     <div>
-      <header>
-        <section>
-          <h1>Ordsky.no</h1>
-        </section>
+      <header className="header">
+        <h1 className="header__title">Ordsky.no</h1>
       </header>
-      <main>
+      <main className="main-container">
         <Router>
           <Route exact path="/" component={Home} />
           <Route path="/text" component={Display} />
         </Router>
       </main>
-      <footer />
+      <footer className="footer" />
     </div>
   );
 }
