@@ -1,8 +1,9 @@
+/* eslint-disable no-param-reassign */
 
 
 export function addLoadingMessage(message, element) {
   element.disabled = true;
-  const html  =`<span class="loader"></span>
+  const html = `<span class="loader"></span>
     ${message}
     `;
   element.innerHTML = html;

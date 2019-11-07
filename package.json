@@ -16,10 +16,23 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "eslintConfig": {
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "no-use-before-define": [
+        "error",
+        {
+          "functions": false,
+          "classes": true
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
