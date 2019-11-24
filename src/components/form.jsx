@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import countWords from '../services/text';
-import createCloud from '../services/cloud';
-import { addWords } from '../reducers/wordsReducer';
-import { addCloud } from '../reducers/cloudsReducer';
-import { addLoadingMessage, removeLoading } from '../utils/domfunc';
+import { useHistory } from 'react-router-dom';
 
 
-function Form(props) {
-  const [text, setText] = useState('');
+function TextForm({
+  message, onSubmit, loading, savedText,
+}) {
+  const [text, setText] = useState(savedText);
   const [notification, setNotification] = useState('');
-  const submitButton = document.querySelector('#klikk-meg');
+  const history = useHistory();
 
-  const toggleNotification = (message, seconds) => {
-    setNotification(message);
+  const toggleNotification = (notif, seconds) => {
+    setNotification(notif);
     setTimeout(() => setNotification(''), seconds * 1000);
   };
 
@@ -28,26 +24,7 @@ function Form(props) {
       toggleNotification('Du må legge inn tekst før du kan generere en ordsky.', 10);
       return;
     }
-
-    try {
-      addLoadingMessage('Teller ord...', submitButton);
-
-      const countedWords = await countWords({ text });
-      props.addWords(countedWords);
-
-      addLoadingMessage('Lager ordsky...', submitButton);
-
-      const cloud = await createCloud({ words: countedWords });
-      props.addCloud(cloud);
-
-      props.toggleDisplay();
-      removeLoading(submitButton);
-    } catch (error) {
-      console.error(error);
-      setNotification('Noe gikk galt, vennligst prøv igjen.');
-      removeLoading(submitButton);
-      setTimeout(() => setNotification(''), 5000);
-    }
+    onSubmit(text);
   };
 
   return (
@@ -65,17 +42,13 @@ function Form(props) {
           {notification || null}
         </div>
         <div className="flex-container">
-          <button type="submit" id="klikk-meg" className="button">Generer ordsky</button>
-          <Link to="/" className="button button--outline">Til forsiden</Link>
+          <button type="button" className="button button--outline" onClick={() => setText('')}>Tøm</button>
+          <button type="submit" id="submit" className="button" disabled={loading}>{message || 'Generer ordsky'}</button>
+          <button type="button" className="button button--outline" onClick={() => history.goBack()}>Tilbake</button>
         </div>
       </form>
     </div>
   );
 }
 
-const mapDispatchToProps = {
-  addWords,
-  addCloud,
-};
-
-export default connect(null, mapDispatchToProps)(Form);
+export default TextForm;

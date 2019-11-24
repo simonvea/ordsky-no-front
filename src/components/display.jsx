@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Cloud from './cloud';
+import Cloud from '../pages/cloud';
 import Form from './form';
 
 function Display() {
