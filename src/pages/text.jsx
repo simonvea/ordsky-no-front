@@ -29,7 +29,7 @@ function Text({
             savedText={textState.text}
           />
         )
-        : <Visualization barChartData={textState.barchart} />}
+        : <Visualization barChartData={textState.barChart} />}
     </div>
   );
 }
