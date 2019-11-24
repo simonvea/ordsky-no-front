@@ -13,7 +13,7 @@ function Visualization({ barChartData, textRetry }) {
         <h2 className="chart__title">Topp 10 ord</h2>
         <VictoryChart domainPadding={20} theme={VictoryTheme.material} animate={{ duration: 2000, easing: 'bounce' }}>
           <VictoryAxis />
-          <VictoryAxis dependentAxis tickFormat={x => x} />
+          <VictoryAxis dependentAxis tickFormat={(x) => x} />
           <VictoryBar horizontal data={barChartData} x="text" y="count" />
         </VictoryChart>
       </section>

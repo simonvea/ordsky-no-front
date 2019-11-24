@@ -5,7 +5,6 @@ import {
 } from '../reducers/textReducer';
 import TextForm from '../components/form';
 import Visualization from '../components/visualization';
-// import countWords from '../services/text';
 import countWords from '../utils/countWords';
 
 function Text({
@@ -30,8 +29,7 @@ function Text({
             savedText={textState.text}
           />
         )
-        : <Visualization barChartData={textState.barchart} />
-      }
+        : <Visualization barChartData={textState.barchart} />}
     </div>
   );
 }
@@ -43,6 +41,6 @@ const mapDispatchToProps = {
   finishCloud: finishCloudAction,
 };
 
-const mapStateToProps = state => ({ textState: state.text });
+const mapStateToProps = (state) => ({ textState: state.text });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Text);

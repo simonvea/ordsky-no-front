@@ -55,7 +55,7 @@ export default function textReducer(state = init, action) {
     case 'TEXT_FINISH_COUNT': {
       const wordCount = action.data;
       const barChart = Object.keys(wordCount)
-        .map(word => ({ text: word, count: wordCount[word] }))
+        .map((word) => ({ text: word, count: wordCount[word] }))
         .sort((a, b) => (a.count < b.count ? 1 : -1))
         .slice(0, 10);
 

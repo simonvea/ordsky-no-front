@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import Visualization from '../components/visualization';
 import TextForm from '../components/form';
 import {
-  startCountAction, finishCountAction, textErrorAction, finishCloudAction,
+  startCountAction, finishCountAction, textErrorAction,
 } from '../reducers/wordsReducer';
-import { addCloud } from '../reducers/cloudsReducer';
-import { createCloud } from '../utils/svgToPng';
 
 function Words({
-  wordsState, startCount, finishCount, finishCloud,
+  wordsState, startCount, finishCount,
 }) {
   const interpretText = (text) => {
     const words = text.split('\n');
@@ -36,19 +34,17 @@ function Words({
             savedText={wordsState.text}
           />
         )
-        : <Visualization barChartData={wordsState.wordCount} />
-      }
+        : <Visualization barChartData={wordsState.wordCount} />}
     </div>
   );
 }
 
-const mapStateToProps = state => ({ wordsState: state.words });
+const mapStateToProps = (state) => ({ wordsState: state.words });
 
 const mapDispatchToProps = {
   startCount: startCountAction,
   finishCount: finishCountAction,
   textError: textErrorAction,
-  finishCloud: finishCloudAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Words);

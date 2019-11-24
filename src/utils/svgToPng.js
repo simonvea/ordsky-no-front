@@ -51,12 +51,12 @@ export function createCloud(cloud) {
     .data(cloud)
     .enter()
     .append('text')
-    .style('font-size', d => `${d.size}px`)
+    .style('font-size', (d) => `${d.size}px`)
     .style('font-family', 'Impact')
-    .style('fill', d => d.fill)
+    .style('fill', (d) => d.fill)
     .attr('text-anchor', 'middle')
-    .attr('transform', d => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
-    .text(d => d.text);
+    .attr('transform', (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
+    .text((d) => d.text);
 
   return div.firstChild;
 }
