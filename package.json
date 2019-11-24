@@ -29,7 +29,6 @@
       "browser": true,
       "es6": true
     },
-    "parser": "babel-eslint",
     "parserOptions": {
       "ecmaVersion": 2018,
       "ecmaFeatures": {
@@ -63,7 +62,6 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.5",
-    "babel-eslint": "^10.0.3",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
