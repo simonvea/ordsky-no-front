@@ -1,4 +1,4 @@
-const init = {
+export const init = {
   loading: false,
   text: '',
   wordCount: undefined,
